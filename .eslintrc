@@ -16,6 +16,7 @@
     "no-return-assign": 0,
     "camelcase": 0,
     "import/extensions": 0,
+    "import/no-extraneous-dependencies": 0,
     "@typescript-eslint/no-redeclare": 0
   },
   "settings": {
