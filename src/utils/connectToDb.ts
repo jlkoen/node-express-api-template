@@ -6,6 +6,7 @@ async function connectToDb() {
   const dbUri = config.get<string>('dbUri');
 
   try {
+    mongoose.set('strictQuery', false);
     await mongoose.connect(dbUri);
     log.info('Connected to DB');
   } catch (e) {
