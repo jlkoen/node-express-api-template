@@ -1,6 +1,7 @@
 import request from 'supertest';
 
 import app from '../app';
+import { connectToDb, closeDbConnection } from '../utils/connectToDb';
 
 const userDetails = {
   firstName: 'John',
@@ -9,10 +10,22 @@ const userDetails = {
   passwordConfirmation: 'password123',
   email: 'email@me.com'
 };
+
+beforeEach(async () => {
+  await connectToDb();
+});
+
+afterAll(async () => {
+  await closeDbConnection();
+});
+
 describe('User Tests', () => {
-  describe('POST /', () => {
-    it('responds with a 200', (done) => {
-      request(app).post('/api/v1/users').send(userDetails).expect(200, done);
+  describe('Create a User', () => {
+    it('responds with a 200', async () => {
+      const response = await request(app)
+        .post('/api/v1/users')
+        .send(userDetails)
+        .expect(200);
     });
   });
 });

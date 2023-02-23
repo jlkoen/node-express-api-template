@@ -13,4 +13,11 @@ async function connectToDb() {
   }
 }
 
-export default connectToDb;
+async function closeDbConnection() {
+  try {
+    await mongoose.disconnect();
+  } catch (e) {
+    process.exit(1);
+  }
+}
+export { connectToDb, closeDbConnection };
