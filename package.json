@@ -7,7 +7,7 @@
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts",
     "build": "tsc",
-    "test": "jest --runInBand",
+    "test": "jest --runInBand --coverage",
     "test:watch": "jest --watch --runInBand"
   },
   "repository": {
