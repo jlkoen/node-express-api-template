@@ -11,12 +11,12 @@ export async function createUserHander(
 
   try {
     const user = await createUser(body);
-    // await sendEmail({
-    //   to: user.email,
-    //   from: 'john@johnkoen.com',
-    //   subject: 'Please verify your account',
-    //   text: `verification code: ${user.verificationCode} Id: ${user._id}`
-    // });
+    await sendEmail({
+      to: user.email,
+      from: 'john@johnkoen.com',
+      subject: 'Please verify your account',
+      text: `verification code: ${user.verificationCode} Id: ${user._id}`
+    });
     return res.send('User successfully created');
   } catch (e: any) {
     if (e.code === 11000) {

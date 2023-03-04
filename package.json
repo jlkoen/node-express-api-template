@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/jlkoen/node-express-api-template#readme",
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@types/config": "^3.3.0",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.4.0",

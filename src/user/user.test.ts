@@ -2,17 +2,19 @@ import request from 'supertest';
 import app from '../app';
 import { connectToDb, closeDbConnection } from '../utils/connectToDb';
 import UserModel, { User } from './user.model';
+import { faker } from '@faker-js/faker';
 
 const userDetails = {
-  firstName: 'John',
-  lastName: 'Koen',
+  firstName: faker.name.firstName(),
+  lastName: faker.name.lastName(),
   password: 'password123',
   passwordConfirmation: 'password123',
-  email: 'email@me.com'
+  email: faker.internet.email()
 };
 
 beforeAll(async () => {
   await connectToDb();
+  jest.setTimeout(30000);
 });
 beforeEach(async () => {
   await UserModel.deleteMany();
