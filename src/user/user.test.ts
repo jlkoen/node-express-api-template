@@ -2,6 +2,7 @@ import request from 'supertest';
 import app from '../app';
 import { connectToDb, closeDbConnection } from '../utils/connectToDb';
 import UserModel, { User } from './user.model';
+import { findUserByEmail } from './user.service';
 import { faker } from '@faker-js/faker';
 
 const userDetails = {
@@ -44,6 +45,14 @@ describe('User Tests', () => {
         .send(userDetails);
       expect(secondResponse.status).toEqual(409);
       expect(secondResponse.text).toEqual('Account already exists');
+    });
+
+    it('ensures password is encrypted in the database', async () => {
+      const response = await request(app)
+        .post('/api/v1/users')
+        .send(userDetails);
+      const userList = (await findUserByEmail(userDetails.email)) as User;
+      expect(userList.password).not.toEqual(userDetails.password);
     });
 
     it('returns error when first name is missing', async () => {
