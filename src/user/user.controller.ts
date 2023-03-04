@@ -19,6 +19,9 @@ export async function createUserHander(
     // });
     return res.send('User successfully created');
   } catch (e: any) {
+    if (e.code === 11000) {
+      return res.status(409).send('Account already exists');
+    }
     return res.status(500).send(e);
   }
 }

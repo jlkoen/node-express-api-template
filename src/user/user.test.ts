@@ -32,6 +32,18 @@ describe('User Tests', () => {
       expect(response.text).toEqual('User successfully created');
     });
 
+    it('responds with an error when account already exists', async () => {
+      const response = await request(app)
+        .post('/api/v1/users')
+        .send(userDetails);
+
+      const secondResponse = await request(app)
+        .post('/api/v1/users')
+        .send(userDetails);
+      expect(secondResponse.status).toEqual(409);
+      expect(secondResponse.text).toEqual('Account already exists');
+    });
+
     it('returns error when first name is missing', async () => {
       userDetails.firstName = '';
       const response = await request(app)
