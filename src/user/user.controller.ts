@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { CreateUserInput } from './user.schema';
+import { CreateUserInput, VerifyUserInput } from './user.schema';
 import { createUser, findUserById } from './user.service';
 import { User } from './user.model';
 import sendEmail from '../utils/mailer';
@@ -29,7 +29,10 @@ export async function createUserHander(
   }
 }
 
-export async function verifyUserHander(req: Request, res: Response) {
+export async function verifyUserHander(
+  req: Request<VerifyUserInput>,
+  res: Response
+) {
   const id = req.params.id;
   const verificationCode = req.params.verificationCode;
   const user = await findUserById(id);
