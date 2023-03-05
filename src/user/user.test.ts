@@ -144,7 +144,25 @@ describe('User Tests', () => {
         `/api/v1/users/verify/${myuserId}/${verificationCode}`
       );
 
-      // expect(response.status).toBe(200);
+      expect(validateUserResponse.status).toBe(400);
+      expect(validateUserResponse.text).toEqual('Could not verify user');
+    });
+
+    it('returns an error when verifying an invalid user', async () => {
+      const userDetails = getUserDetails();
+      const createUserResponse = await request(app)
+        .post('/api/v1/users')
+        .send(userDetails);
+
+      const userList = (await findUserByEmail(userDetails.email)) as User;
+      const verificationCode = 'myincorrectcode';
+      // @ts-ignore
+      const myuserId = '6404e5cb1d2f87e043800000';
+      const validateUserResponse = await request(app).post(
+        `/api/v1/users/verify/${myuserId}/${verificationCode}`
+      );
+
+      expect(validateUserResponse.status).toBe(400);
       expect(validateUserResponse.text).toEqual('Could not verify user');
     });
   });

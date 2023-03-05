@@ -34,7 +34,7 @@ export async function verifyUserHander(req: Request, res: Response) {
   const verificationCode = req.params.verificationCode;
   const user = await findUserById(id);
   if (!user) {
-    return res.send('Could not verify user');
+    return res.status(400).send('Could not verify user');
   }
 
   if (user.verificationCode === verificationCode) {
@@ -44,6 +44,5 @@ export async function verifyUserHander(req: Request, res: Response) {
     return res.send('User successfully verified');
   }
 
-  //return res.status(400).send('Could not verify user');
-  return res.send('Could not verify user');
+  return res.status(400).send('Could not verify user');
 }
